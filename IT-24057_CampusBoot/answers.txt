@@ -1,0 +1,11 @@
+Part E: Reflection Questions
+
+Q1. What happens if @Retention(RetentionPolicy.RUNTIME) is missing?
+The default retention is CLASS. The annotation stays in the .class file, but the JVM does not keep it at runtime. So getAnnotation() returns null for every element. The container would skip every class, no values would be injected, the validator would find no @Range fields, and the router would return 404 for every path.
+
+Q2. Spring Boot equivalents, and one thing Spring does that CampusBoot does not.
+@Component maps to Spring's @Component (also @Service and @Controller). @Value maps to Spring's @Value("${app.name}"). @Range maps to Bean Validation's @Min and @Max. @Route maps to Spring MVC's @GetMapping("/hello").
+Real Spring scans packages automatically and wires beans together by type with @Autowired, including constructor injection. CampusBoot does neither; it only creates beans with a no-arg constructor.
+
+Q3. Why is setAccessible(true) both powerful and risky?
+It turns off Java's access checks, so code can read and change private fields and call private methods. This is powerful because a framework can inject values into private fields without setters. It is risky because it breaks encapsulation: any code can change an object's private state. On Java 9+, it can also fail for JDK internals whose packages are not opened.
