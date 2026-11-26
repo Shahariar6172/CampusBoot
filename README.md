@@ -40,6 +40,7 @@ CampusBoot/
 From the project folder:
  
 ```bash
+cd IT-24057_CampusBoot
 javac Main.java
 java Main
 ```
